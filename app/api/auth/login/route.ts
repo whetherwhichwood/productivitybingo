@@ -3,6 +3,11 @@ import bcrypt from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
+  // Ensure we have a valid request object
+  if (!request) {
+    return NextResponse.json({ message: 'Invalid request' }, { status: 400 })
+  }
+
   try {
     const { email, password } = await request.json()
 
