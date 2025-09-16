@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  accountId String
+  name      String
+  email     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account     Account     @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  bingoBoards BingoBoard[]
+  rewards     Reward[]
+  tolerations Toleration[]
+  tasks       Task[]
+}
+
+model BingoBoard {
+  id          String   @id @default(cuid())
+  userId      String
+  size        Int      // 3, 4, or 5
+  month       Int      // 1-12
+  year        Int
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  squares  BingoSquare[]
+  bingos   Bingo[]
+}
+
+model BingoSquare {
+  id          String   @id @default(cuid())
+  bingoBoardId String
+  position    Int      // 0 to (size*size)-1
+  content     String
+  type        String   // "TOLERATION", "TASK", "FREE_SPACE"
+  isCompleted Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bingoBoard BingoBoard @relation(fields: [bingoBoardId], references: [id], onDelete: Cascade)
+}
+
+model Bingo {
+  id          String   @id @default(cuid())
+  bingoBoardId String
+  type        String   // "ROW", "COLUMN", "DIAGONAL"
+  position    Int      // which row/column/diagonal
+  completedAt DateTime @default(now())
+
+  bingoBoard BingoBoard @relation(fields: [bingoBoardId], references: [id], onDelete: Cascade)
+}
+
+model Reward {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  points      Int      @default(1)
+  isRedeemed  Boolean  @default(false)
+  redeemedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Toleration {
+  id          String   @id @default(cuid())
+  userId      String
+  description String
+  isCompleted Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  userId      String
+  description String
+  isCompleted Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+

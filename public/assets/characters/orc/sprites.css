@@ -1,0 +1,15 @@
+
+/* Orc Sprite Sheet CSS */
+.orc-sprite {
+  background-image: url('./orc-spritesheet.png');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+}
+
+/* Frame positions (horizontal strip) */
+.orc-idle { background-position: 0px 0px; }
+.orc-attack1 { background-position: -100px 0px; }
+.orc-attack2 { background-position: -200px 0px; }
+.orc-walk { background-position: -300px 0px; }

@@ -1,0 +1,16 @@
+
+/* Knight Sprite Sheet CSS */
+.knight-sprite {
+  background-image: url('./knight-spritesheet.png');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+}
+
+/* Frame positions (horizontal strip) */
+.knight-idle { background-position: 0px 0px; }
+.knight-attack1 { background-position: -100px 0px; }
+.knight-attack2 { background-position: -200px 0px; }
+.knight-attack3 { background-position: -300px 0px; }
+.knight-walk { background-position: -400px 0px; }

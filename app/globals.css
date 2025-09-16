@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Uncial+Antiqua&family=MedievalSharp&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  body {
+    @apply bg-gradient-to-br from-medieval-50 to-knight-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .medieval-card {
+    @apply bg-gradient-to-br from-white to-medieval-50 border-2 border-medieval-200 rounded-lg shadow-lg;
+  }
+  
+  .knight-button {
+    @apply bg-gradient-to-r from-knight-500 to-knight-600 hover:from-knight-600 hover:to-knight-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200;
+    font-family: 'MedievalSharp', cursive;
+  }
+  
+  .wizard-button {
+    @apply bg-gradient-to-r from-wizard-500 to-wizard-600 hover:from-wizard-600 hover:to-wizard-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200;
+    font-family: 'MedievalSharp', cursive;
+  }
+  
+  .bingo-square {
+    @apply w-full h-full border-2 border-medieval-300 rounded-lg p-2 text-center flex items-center justify-center font-medium text-sm transition-all duration-200 hover:shadow-md;
+    font-family: 'MedievalSharp', cursive;
+  }
+  
+  .bingo-square.completed {
+    @apply bg-gradient-to-br from-green-400 to-green-500 text-white border-green-600;
+  }
+  
+  .bingo-square.free-space {
+    @apply bg-gradient-to-br from-wizard-400 to-wizard-500 text-white border-wizard-600;
+  }
+  
+  .sparkle {
+    @apply absolute inset-0 pointer-events-none;
+  }
+  
+  .sparkle::before {
+    content: '✨';
+    @apply absolute top-1 left-1 animate-sparkle;
+  }
+  
+  .sparkle::after {
+    content: '⭐';
+    @apply absolute bottom-1 right-1 animate-sparkle;
+    animation-delay: 0.5s;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+  }
+}
